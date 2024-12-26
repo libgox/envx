@@ -33,13 +33,17 @@ func GetIntOr(key string, defaultValue int) (int, error) {
 	return res, nil
 }
 
-// MustGet returns the string value of an environment variable, panicking if it's missing.
-func MustGet(key string) string {
+// MustGetInt returns the int value of an environment variable, panicking if it's missing.
+func MustGetInt(key string) int {
 	aux := os.Getenv(key)
 	if aux == "" {
 		panic(NewMissingEnvVarError(key))
 	}
-	return aux
+	res, err := strconv.Atoi(aux)
+	if err != nil {
+		panic(fmt.Sprintf("invalid int value for %s: %s", key, aux))
+	}
+	return res
 }
 
 // MustGetIntOr returns the integer value of an environment variable or a default if it's missing.
