@@ -2,15 +2,15 @@ package envx
 
 import "fmt"
 
-// MissingEnvVarError is returned when a required environment variable is missing.
-type MissingEnvVarError struct {
+// NoSuchEnvError is returned when a required environment variable is missing.
+type NoSuchEnvError struct {
 	Key string
 }
 
-func (e *MissingEnvVarError) Error() string {
-	return fmt.Sprintf("missing required environment variable: %s", e.Key)
+func (e *NoSuchEnvError) Error() string {
+	return fmt.Sprintf("no such environment variable: %s", e.Key)
 }
 
 func NewMissingEnvVarError(key string) error {
-	return &MissingEnvVarError{Key: key}
+	return &NoSuchEnvError{Key: key}
 }
